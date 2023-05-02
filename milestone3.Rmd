@@ -50,42 +50,7 @@ complete.country = read.csv("https://github.com/AndreaChen0301/stat436/raw/main/
 complete.country
 ```
 
-## Visulizations
-
-### Premature Deaths Barplot:
-
-```{r, fig.height=5, fig.width=11}
-# % welfare cost on premature death (PM) out of total welfare cost on premature death + premature deaths line plot
-
-# Based on the number of premature death, we pick the top 10 countries with most premature death to see 
-# the percent of welfare cost of premature death caused by PM within welfare on all premature death.
-
-# premature death bar plot
-mortality = health2 %>%
-  filter(Country %in% complete.country) %>%
-  mutate(Year = as.character(Year)) %>%
-  filter(Year == "1990"| Year == "2019")
-# 
-# top.10 = mortality %>%
-#   group_by(Country) %>%
-#   summarise(death = mean(prematured_death))%>%
-#   arrange(desc(death))%>%
-#   slice_head(n=10)%>%
-#   pull(Country)
-
-mortality %>%
-  filter(Country %in% per_top.10) %>%
-  ggplot(aes(x=reorder(Country, death_per_million), y=death_per_million, fill = Year))+
-  scale_fill_manual(values=c("#D95F02", "#1B9E77"))+
-  geom_col(position="dodge", width=0.7)+
-  geom_text(aes(label=death_per_million), position=position_dodge(width=0.75), hjust=0.4, vjust=-0.65, size=3)+
-  scale_y_continuous(expand = c(0, 0, 0.1, 0.1))+
-  labs(x="Country", y="Premature Death per Million", title = "Top 10 Countries with Most Premature Death Per Million Inhabitant Caused by PM in 1990 and 2019")+
-  theme_bw()+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
-        axis.ticks = element_blank(),
-        panel.grid.major.x = element_blank())
-```
+## Visulization:
 
 ### Percent of Welfare Cost on Premature Deaths caused by PM in Total Welfare Cost on Premature Death:
 #### Compare its trend with premature deaths
